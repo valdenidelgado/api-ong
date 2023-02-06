@@ -1,0 +1,12 @@
+{
+  "name": "api-ong",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:valdenidelgado/api-ong.git",
+  "author": "Valdeni Delgado <valdenidelgadofilho@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "typescript": "^4.9.5"
+  }
+}
