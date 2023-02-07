@@ -7,7 +7,8 @@
     "husky:prepare": "husky install",
     "test": "jest --passWithNoTests",
     "test:watch": "yarn test --watch",
-    "test:staged": "yarn test --findRelatedTests"
+    "test:staged": "yarn test --findRelatedTests",
+    "test:push": "yarn test --coverage"
   },
   "repository": "git@github.com:valdenidelgado/api-ong.git",
   "author": "Valdeni Delgado <valdenidelgadofilho@gmail.com>",
