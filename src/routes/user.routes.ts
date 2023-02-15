@@ -1,9 +1,23 @@
+import { CreateUserController } from "@/controllers/useCases/createUser/CreateController"
 import { Router } from "express"
-import { UserController } from "../controller/users/UserController"
+import { GetUserController } from "../controllers/useCases/getUsers/GetUsersController"
 
 const router = Router()
 
-router.get("/user", UserController.findAll)
-router.post("/register", UserController.create)
+router.get("/", async (req, res) => {
+  const getUserControllers = new GetUserController()
+
+  const { body, statusCode } = await getUserControllers.handle()
+
+  return res.status(statusCode).json(body)
+})
+
+router.post("/register", async (req, res) => {
+  const createUserController = new CreateUserController()
+
+  const { body, statusCode } = await createUserController.handle(req)
+
+  return res.status(statusCode).json(body)
+})
 
 export default router
