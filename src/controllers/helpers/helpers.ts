@@ -19,3 +19,8 @@ export const serverError = (): HttpResponse<string> => ({
   statusCode: HttpStatusCode.SERVER_ERROR,
   body: "Internal Server Error",
 })
+
+export const noContent = (): HttpResponse<string> => ({
+  statusCode: HttpStatusCode.NO_CONTENT,
+  body: "No content",
+})
