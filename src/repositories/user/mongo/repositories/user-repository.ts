@@ -3,16 +3,18 @@ import { ICreateUserRepository } from "../../interfaces/ICreateUserRepository"
 import { ICreateUserParams } from "../../interfaces/helpers/ICreateUserParams"
 import UserModel from "../models/UserModel"
 import { IGetUsersRepository } from "../../interfaces/IGetUsersRepository"
-
-type MongoUser = Omit<IUser, "id"> & { _id: string }
+import { IDeleteUserRepository } from "../../interfaces/IDeleteUserRepository"
 
 export class UserRepository
-  implements ICreateUserRepository, IGetUsersRepository
+  implements ICreateUserRepository, IGetUsersRepository, IDeleteUserRepository
 {
+  async deleteUser(id: string): Promise<void> {
+    await UserModel.findByIdAndDelete(id)
+  }
   async findAll(): Promise<IUser[]> {
-    const users = await UserModel.find<MongoUser>()
+    const users = await UserModel.find()
 
-    return users.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }))
+    return users
   }
   async createUser(params: ICreateUserParams): Promise<IUser> {
     const user = await UserModel.create(params)
