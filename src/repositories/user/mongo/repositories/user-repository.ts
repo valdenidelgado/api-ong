@@ -11,11 +11,16 @@ export class UserRepository
   async deleteUser(id: string): Promise<void> {
     await UserModel.findByIdAndDelete(id)
   }
-  async findAll(): Promise<IUser[]> {
-    const users = await UserModel.find()
 
-    return users
+  async findAll(): Promise<IUser[]> {
+    const users = await UserModel.find().lean()
+
+    return users.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }))
   }
+
   async createUser(params: ICreateUserParams): Promise<IUser> {
     const user = await UserModel.create(params)
 
