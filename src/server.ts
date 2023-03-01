@@ -1,16 +1,14 @@
-import express from "express"
+import app from "./app"
+import { config } from "./config/config"
 import conn from "./db/conn"
 
-const app = express()
+const server = new app()
 
-const port = 8080
-
-conn()
-
-app.get("/", (req, res) => {
-  res.send("Hello World!, bla")
-})
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
-})
+try {
+  server.app.listen(config.server.port, () => {
+    console.log(`Server running on port ${config.server.port}`)
+  })
+  conn()
+} catch (error) {
+  console.log(error)
+}
