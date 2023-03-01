@@ -1,30 +1,23 @@
-import { CreateUserController } from "@/controllers/useCases/createUser/CreateController"
 import { Router } from "express"
-import { GetUserController } from "../controllers/useCases/getUsers/GetUsersController"
-import { DeleteUserController } from "@/controllers/useCases/deleteUser/DeleteUserController"
+import { usersControllers } from "../controllers/useCases/index"
 
 const router = Router()
 
 router.get("/", async (req, res) => {
-  const getUserControllers = new GetUserController()
-
-  const { body, statusCode } = await getUserControllers.handle()
+  const { body, statusCode } = await usersControllers.get()
 
   return res.status(statusCode).json(body)
 })
 
+//TODO: Create a middleware to return body and statusCode
 router.post("/register", async (req, res) => {
-  const createUserController = new CreateUserController()
-
-  const { body, statusCode } = await createUserController.handle(req)
+  const { body, statusCode } = await usersControllers.create(req)
 
   return res.status(statusCode).json(body)
 })
 
 router.delete("/:id", async (req, res) => {
-  const deleteUserController = new DeleteUserController()
-
-  const { body, statusCode } = await deleteUserController.handle(req)
+  const { body, statusCode } = await usersControllers.delete(req)
 
   return res.status(statusCode).json(body)
 })
